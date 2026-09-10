@@ -7,10 +7,12 @@ steps:
 
 - checkout: self
 
-- script: |
-    echo "Repository checkout successful"
-    echo "Current directory:"
-    pwd
-    echo "Repository contents:"
-    ls -la
-  displayName: 'Check Repository'
+- task: AzureCLI@2
+  displayName: 'Test Azure Connection'
+  inputs:
+    azureSubscription: 'terraform-azure-service-connection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      echo "Successfully authenticated to Azure"
+      az account show --query "{Subscription:name, SubscriptionId:id}" --output table
