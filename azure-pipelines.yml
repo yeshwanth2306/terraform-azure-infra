@@ -48,7 +48,6 @@ steps:
 
       echo "Running Terraform Init..."
       terraform init -reconfigure 
-
 - task: AzureCLI@2
   displayName: 'Terraform Validate and Plan'
   inputs:
@@ -65,11 +64,11 @@ steps:
       export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
       export ARM_OIDC_AZURE_SERVICE_CONNECTION_ID=$AZURESUBSCRIPTION_SERVICE_CONNECTION_ID
 
-      echo "Validating Terraform..."
       terraform validate
-
-      echo "Running Terraform Plan..."
       terraform plan
+
+  env:
+    TF_VAR_vm_admin_password: $(TF_VAR_vm_admin_password)
 
 - task: AzureCLI@2
   displayName: 'Terraform Apply'
@@ -89,3 +88,6 @@ steps:
 
       echo "Applying Terraform configuration..."
       terraform apply -auto-approve
+
+  env:
+    TF_VAR_vm_admin_password: $(TF_VAR_vm_admin_password)
