@@ -33,3 +33,18 @@ steps:
 
     terraform version
   displayName: 'Install Terraform'
+
+- task: AzureCLI@2
+  displayName: 'Terraform Init'
+  inputs:
+    azureSubscription: 'terraform-azure-service-connection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    inlineScript: |
+      export ARM_USE_CLI=true
+      export ARM_USE_AZUREAD=true
+      export ARM_TENANT_ID=$(az account show --query tenantId -o tsv)
+
+      echo "Running Terraform Init..."
+      terraform init -reconfigure 
