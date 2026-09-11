@@ -9,3 +9,15 @@ variable "location" {
   type        = string
   default     = "Central India"
 }
+
+variable "vm_admin_username" {
+  description = "Administrator username for the Linux VM"
+  type        = string
+  default     = "azureuser"
+}
+
+variable "vm_admin_password" {
+  description = "Administrator password for the Linux VM"
+  type        = string
+  sensitive   = true
+}
