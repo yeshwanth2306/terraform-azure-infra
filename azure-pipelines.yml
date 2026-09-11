@@ -16,3 +16,7 @@ steps:
     inlineScript: |
       echo "Successfully authenticated to Azure"
       az account show --query "{Subscription:name, SubscriptionId:id}" --output table
+
+- script: |
+    terraform version
+  displayName: 'Check Terraform Version'
