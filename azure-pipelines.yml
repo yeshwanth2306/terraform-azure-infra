@@ -67,8 +67,6 @@ steps:
       terraform validate
       terraform plan
 
-  env:
-    TF_VAR_vm_admin_password: $(TF_VAR_vm_admin_password)
 
 - task: AzureCLI@2
   displayName: 'Terraform Apply'
@@ -88,6 +86,3 @@ steps:
 
       echo "Applying Terraform configuration..."
       terraform apply -auto-approve
-
-  env:
-    TF_VAR_vm_admin_password: $(TF_VAR_vm_admin_password)
